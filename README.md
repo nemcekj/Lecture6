@@ -16,17 +16,14 @@
 
 ## Tasks to do
 
-1. Download the data in a zip folder from [here](https://www.vut.cz/www_base/vutdisk.php?i=286442a8c1). Extract the content of the zip folder into **Lecture6** folder. It contains folder Ants with 110 *jpeg* images of Petri dish with 6 ants.
-2. Compute a disparity maps for each im0 in horizontal direction by any method.
-3. Compute a depth maps from obtained disparity maps and available calibration parameters.
-4. Design an automatic algorithm for depth maps computation (depth will be in mm). Try to design also a pipeline for post-processing of disparity (depth) maps that will reflect in gaining similar results as the ground truth maps. 
-5. Use the provided MATLAB function for evaluation of the results and submit the output to the provided Excel table. The function *evaluateReconstruction.p* called as:
-`[MAE,percantageMissing,details] = evaluateReconstruction(depthMaps)`,
+1. Download the data in a zip folder from [here](https://www.vut.cz/www_base/vutdisk.php?i=286473a42c). Extract the content of the zip folder into **Lecture6** folder. It contains folder **Ants** with 215 *00000XXX.jpg* during time acquired images of Petri dish with 6 ants.
+2. Load all images from folder **Ants**.
+3. Design and implement an automatic tracking algorithm to track all ants in all images separately.
+4. Use the provided MATLAB function for evaluation of the results and submit the output to the provided Excel table. The function *EvaluationAnts.p* called as:
+`[errorTracking] = EvaluationAnts(trajectories)`,
 has the following inputs and outputs:
-  * depthMaps (cell array 1xNumber of scenes, where each cell contains matrix sized as image containing depth values in mm, missing pixels should have value equal to zero); the order of scenes has to be preserved,
-  * MAE (mean absolute error for whole dataset),
-  * percentageMissing (mean percent of pixels without estimated depth)
-  * details for individual scenes.
+  * trajectories (cell array 1x6, where each cell contains matrix for each ant trajectory; matrix should have size 215x2, where the first column indicates the row coordination in the image and the second column of the matrix indicates the column coordinate in the image. It does not matter on the order of the ants.
+  * errorTracking (structure containing fields of MAE (mean absolute error for whole dataset), std (standard deviation), MAE_details (details for track errors), and orderAnts (corrected order of the ants).
 6. Store your implemented algorithm as a form of function `[depthMaps] = TeamName( path )`; for *depthMaps* see above; *path* is the path to the *Data* folder with subfolders of individual scenes. Make sure the function will open individual subfolders, compute the depth map and store it in the cell array with the order of scene preserved. The function will be used for evaluation of universality of your solution using another input scenes. **Push** your program implementations into GitHub repository **Lecture4** using the **branch of your team** (stage changed -> fill commit message -> sign off -> commit -> push -> select *NAME_OF_YOUR_TEAM* branch -> push -> manager-core -> web browser -> fill your credentials).
 7. Create a reconstructed 3D surface image of your best-estimated depth map and use representation by a point cloud (due to the high resolution of original images use subsampled
 space only). Check the quality of the reconstruction. You can rotate the 3D plot and make sure that the reconstructed objects are clearly visible.
